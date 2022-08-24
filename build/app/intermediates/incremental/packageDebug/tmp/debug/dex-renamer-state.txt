@@ -1,4 +1,4 @@
-#Wed Aug 24 15:40:38 EET 2022
+#Wed Aug 24 22:01:02 EET 2022
 base.2=C\:\\Users\\ahmed omar\\StudioProjects\\SocialApp\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex
 path.2=classes3.dex
 base.1=C\:\\Users\\ahmed omar\\StudioProjects\\SocialApp\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex

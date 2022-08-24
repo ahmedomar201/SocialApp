@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\main\AndroidManifest.xml:3:4-33:19
+INJECTED from C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\main\AndroidManifest.xml:4:5-33:19
 MERGED from [:firebase_auth] C:\Users\ahmed omar\StudioProjects\SocialApp\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:firebase_auth] C:\Users\ahmed omar\StudioProjects\SocialApp\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:cloud_firestore] C:\Users\ahmed omar\StudioProjects\SocialApp\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
@@ -203,7 +203,7 @@ INJECTED from C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\debug
 		INJECTED from C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\debug\AndroidManifest.xml
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\debug\AndroidManifest.xml:8:5-66
+ADDED from C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\debug\AndroidManifest.xml:8:5-67
 MERGED from [com.google.firebase:firebase-auth:21.0.7] C:\Users\ahmed omar\.gradle\caches\transforms-3\6b415a3bc2b441250bf51af87084b635\transformed\jetified-firebase-auth-21.0.7\AndroidManifest.xml:23:5-67
 MERGED from [com.google.firebase:firebase-auth:21.0.7] C:\Users\ahmed omar\.gradle\caches\transforms-3\6b415a3bc2b441250bf51af87084b635\transformed\jetified-firebase-auth-21.0.7\AndroidManifest.xml:23:5-67
 MERGED from [com.google.firebase:firebase-firestore:24.2.2] C:\Users\ahmed omar\.gradle\caches\transforms-3\63a55b2d265d667c75a69a4a5e2e28ed\transformed\jetified-firebase-firestore-24.2.2\AndroidManifest.xml:14:5-67

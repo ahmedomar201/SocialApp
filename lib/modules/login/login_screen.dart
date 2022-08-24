@@ -1,10 +1,12 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socialapp/layout/social_layout.dart';
 import 'package:socialapp/modules/login/cubit_login.dart';
 import 'package:socialapp/modules/login/states_login.dart';
 import 'package:socialapp/modules/register/register_screen.dart';
 import 'package:socialapp/shared/componets/tasks.dart';
+import 'package:socialapp/shared/netwoark/local/cash_helper.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -23,26 +25,22 @@ class LoginScreen extends StatelessWidget {
           if (state is LoginErrorState) {
             showToast(text: state.error, state: ToastStates.ERROR);
           }
-          // if(state is ShopLoginSuccessState) {
-          //   if (state.loginModel.status) {
-          //     print(state.loginModel.data?.token);
-          //     print(state.loginModel.message);
-          //     CacheHelper.saveData(
-          //         key: 'token',
-          //         value: state.loginModel.data?.token).then((value)
-          //     {
-          //       token=state.loginModel.data!.token;
-          //       navigateAndFinish(context,
-          //           ShopLayout());
-          //     });
-          //   } else {
-          //     showToast(
-          //       text: state.loginModel.message,
-          //       state: ToastStates.ERROR,
-          //     );
-          //     print(state.loginModel.message);
-          //   }
-          // }
+          if (state is LoginSuccessState) {
+            CacheHelper.saveData(
+              key: 'uId',
+              value: state.uId,
+            ).then((value) {
+              navigateAndFinish(context, SocialLayout());
+            });
+            //   } else {
+            //     showToast(
+            //       text: state.loginModel.message,
+            //       state: ToastStates.ERROR,
+            //     );
+            //     print(state.loginModel.message);
+            //   }
+            // }
+          }
         },
         builder: (context, state) => Scaffold(
           appBar: AppBar(),

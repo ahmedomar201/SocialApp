@@ -14,7 +14,7 @@
 14         to allow setting breakpoints, to provide hot reload, etc.
 15    -->
 16    <uses-permission android:name="android.permission.INTERNET" />
-16-->C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\debug\AndroidManifest.xml:8:5-66
+16-->C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\debug\AndroidManifest.xml:8:5-67
 16-->C:\Users\ahmed omar\StudioProjects\SocialApp\android\app\src\debug\AndroidManifest.xml:8:22-64
 17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 17-->[com.google.firebase:firebase-auth:21.0.7] C:\Users\ahmed omar\.gradle\caches\transforms-3\6b415a3bc2b441250bf51af87084b635\transformed\jetified-firebase-auth-21.0.7\AndroidManifest.xml:24:5-79
