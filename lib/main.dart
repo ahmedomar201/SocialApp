@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialapp/bloc_observer.dart';
 import 'package:socialapp/firebase_options.dart';
+import 'package:socialapp/layout/cubit.dart';
 import 'package:socialapp/layout/social_layout.dart';
+import 'package:socialapp/layout/states.dart';
 import 'package:socialapp/modules/login/login_screen.dart';
 
+import 'shared/componets/tasks.dart';
 import 'shared/netwoark/local/cash_helper.dart';
 
 void main() async {
@@ -17,7 +20,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  var uId = CacheHelper.getData(key: "uId");
+  uId = CacheHelper.getData(key: "uId");
   Widget widget;
   if (uId != null) {
     widget = SocialLayout();
@@ -37,9 +40,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+    return BlocProvider(
+      create: (BuildContext context) => SocialCubit()..getUserModel(),
+      child: BlocConsumer<SocialCubit, SocialStates>(
+          listener: (context, state) {},
+          builder: (context, state) => MaterialApp(
+                debugShowCheckedModeBanner: false,
+                home: startWidget,
+              )),
     );
   }
 }
