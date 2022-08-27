@@ -24,7 +24,7 @@ class SocialLayout extends StatelessWidget {
               return Column(
                 children: [
                   if (!model!.isEmailVerified!)
-                    //if(!FirebaseAuth.instance.currentUser!.emailVerified)
+                    // if(FirebaseAuth.instance.currentUser!.emailVerified)
                     Container(
                       color: Colors.amber.withOpacity(0.6),
                       child: Padding(
