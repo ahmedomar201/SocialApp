@@ -7,7 +7,7 @@ import 'package:socialapp/layout/cubit.dart';
 import 'package:socialapp/layout/social_layout.dart';
 import 'package:socialapp/layout/states.dart';
 import 'package:socialapp/modules/login/login_screen.dart';
-
+import 'package:socialapp/shared/styles/theme.dart';
 import 'shared/componets/tasks.dart';
 import 'shared/netwoark/local/cash_helper.dart';
 
@@ -46,7 +46,10 @@ class MyApp extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) => MaterialApp(
                 debugShowCheckedModeBanner: false,
-                home: startWidget,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                //themeMode: ThemeMode.dark,
+                home: SocialLayout(),
               )),
     );
   }

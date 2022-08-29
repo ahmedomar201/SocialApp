@@ -1,73 +1,88 @@
-import 'package:buildcondition/buildcondition.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialapp/layout/cubit.dart';
 import 'package:socialapp/layout/states.dart';
-import 'package:socialapp/shared/componets/tasks.dart';
+import 'package:socialapp/modules/newpost/newpost_screen.dart';
+import 'package:socialapp/shared/styles/icon_broken.dart';
 
 class SocialLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
+      listener: (context, state)
+      {
+        if(state is NewPostState)
+        {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder:(context)=>NewPostScreen()
+              )
+          );
+        }
+      },
       builder: (context, state) {
+        var cubit = SocialCubit.get(context);
+
         return Scaffold(
           appBar: AppBar(
-            title: Text('News Feed'),
+            title: Text(
+              cubit.titles[cubit.currentIndex],
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(
+                  IconBroken.Notification,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(
+                  IconBroken.Search,
+                ),
+                onPressed: () {},
+              ),
+            ],
           ),
-          body: BuildCondition(
-            condition: SocialCubit.get(context).model != null,
-            builder: (context) {
-              var model = SocialCubit.get(context).model;
-
-              return Column(
-                children: [
-                  if (!model!.isEmailVerified!)
-                    // if(FirebaseAuth.instance.currentUser!.emailVerified)
-                    Container(
-                      color: Colors.amber.withOpacity(0.6),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.info_outline,
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Expanded(
-                              child: Text('please verify your email'),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              child: MaterialButton(
-                                onPressed: () {
-                                  FirebaseAuth.instance.currentUser!
-                                      .sendEmailVerification()
-                                      .then((value) {
-                                    showToast(
-                                        text: 'chek your mail',
-                                        state: ToastStates.SUCCESS);
-                                  });
-                                },
-                                child: Text(
-                                  'Send',
-                                  style: TextStyle(color: Colors.blue),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              );
+          body: cubit.screens[cubit.currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: cubit.currentIndex,
+            onTap: (index)
+            {
+              cubit.changeBottomNav(index);
             },
-            fallback: (context) => Center(child: CircularProgressIndicator()),
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Home,
+                ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Chat,
+                ),
+                label: 'Chats',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Paper_Upload,
+                ),
+                label: 'Post',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Location,
+                ),
+                label: 'Users',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  IconBroken.Setting,
+                ),
+                label: 'Settings',
+              ),
+            ],
           ),
         );
       },
