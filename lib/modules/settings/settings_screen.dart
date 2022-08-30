@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialapp/layout/cubit.dart';
 import 'package:socialapp/layout/states.dart';
+import 'package:socialapp/modules/editprofile/edit_profile.dart';
 import 'package:socialapp/shared/styles/icon_broken.dart';
 class SettingScreen extends StatelessWidget
 {
@@ -162,7 +163,13 @@ class SettingScreen extends StatelessWidget
                     width: 10.0,
                   ),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: ()
+                    {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>EditProfile()
+                          )
+                      );
+                    },
                     child: Icon(
                       IconBroken.Edit,
                       size: 16.0,

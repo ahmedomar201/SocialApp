@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^1.21.0
   firebase_auth: ^3.6.4
+  firebase_storage: ^10.3.7
   cloud_firestore: ^3.4.5
   buildcondition: ^0.0.4
   flutter_bloc: ^8.0.1
@@ -50,6 +51,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   fluttertoast: ^8.0.9
   carousel_slider: ^4.1.1
+  image_picker: ^0.8.5+3
 
 
 dev_dependencies:

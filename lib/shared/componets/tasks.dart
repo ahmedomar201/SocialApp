@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:socialapp/shared/styles/icon_broken.dart';
 
 Widget myDivider() => Padding(
       padding: const EdgeInsetsDirectional.only(
@@ -183,3 +184,21 @@ void printFullText(String text) {
 
 String? uId = '';
 
+AppBar defaultAppBar({
+  required BuildContext context,
+  String? title,
+  final List<Widget>?actions,
+})=>AppBar(
+  leading: IconButton(
+    onPressed:()
+    {
+      Navigator.pop(context);
+    },
+    icon:Icon(
+      IconBroken.Arrow___Left_2 ,
+    ),
+  ),
+  title: Text(title!),
+  actions: actions,
+  titleSpacing: 5,
+);
