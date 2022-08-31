@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialapp/layout/cubit.dart';
 import 'package:socialapp/layout/states.dart';
 import 'package:socialapp/shared/styles/icon_broken.dart';
-
 import '../../shared/componets/tasks.dart';
 // ignore: must_be_immutable
 class NewPostScreen extends StatelessWidget

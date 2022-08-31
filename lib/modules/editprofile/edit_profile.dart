@@ -15,41 +15,46 @@ class EditProfile extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var model = SocialCubit.get(context).model;
+        var userModel = SocialCubit.get(context).userModel;
         var profileImage = SocialCubit.get(context).profileImage;
         var coverImage = SocialCubit.get(context).coverImage;
 
-        nameController.text = model!.name!;
-        phoneController.text = model.phone!;
-        bioController.text = model.bio!;
+        nameController.text = userModel!.name!;
+        phoneController.text = userModel.phone!;
+        bioController.text = userModel.bio!;
 
         return Scaffold(
           appBar: defaultAppBar(
             context: context,
             title: 'Edit Profile',
             actions: [
-              defaultTextButton(
-                function: () {
-                  SocialCubit.get(context).updateUser(
-                      name: nameController.text,
-                      phone: phoneController.text,
-                      bio: bioController.text);
-                },
-                text: 'Update',
-              ),
+             MaterialButton(
+                 onPressed: ()
+                 {
+                   SocialCubit.get(context).updateUser(
+                       name: nameController.text,
+                       phone: phoneController.text,
+                       bio: bioController.text);
+                 },
+               child: Text('Update',
+                 style: TextStyle(
+                     color: Colors.orange),
+               ),
+                 ),
               SizedBox(
-                width: 15.0,
+                width: 5,
               ),
             ],
           ),
+
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  // if (state is SocialUserUpdateLoadingState)
+                  if (state is UserUpdateLoadingState)
                     LinearProgressIndicator(),
-                  // if (state is SocialUserUpdateLoadingState)
+                  if (state is UserUpdateLoadingState)
                     SizedBox(
                       height: 10.0,
                     ),
@@ -77,7 +82,7 @@ class EditProfile extends StatelessWidget {
                                   image: DecorationImage(
                                     image: coverImage == null
                                         ? NetworkImage(
-                                      '${model.cover}',
+                                      '${userModel.cover}',
                                     )
                                         : FileImage(coverImage)
                                     as ImageProvider,
@@ -111,7 +116,7 @@ class EditProfile extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 60.0,
                                 backgroundImage: profileImage == null
-                                    ? NetworkImage('${model.image}',)
+                                    ? NetworkImage('${userModel.image}',)
                                     : FileImage(profileImage)
                                 as ImageProvider
                               ),
@@ -144,22 +149,30 @@ class EditProfile extends StatelessWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                defaultTextButton(
-                                  function: () {
-                                    SocialCubit.get(context).uploadProfileImage(
-                                      // name: nameController.text,
-                                      // phone: phoneController.text,
-                                      // bio: bioController.text,
-                                    );
-                                  },
-                                  text: 'upload profile',
+                                Container(
+                                  width: double.infinity,
+                                  color: Colors.blue,
+                                  child: MaterialButton(
+                                    onPressed: ()
+                                    {
+                                      SocialCubit.get(context).uploadProfileImage(
+                                        name: nameController.text,
+                                        phone: phoneController.text,
+                                        bio: bioController.text,
+                                      );
+                                    },
+                                    child: Text(
+                                      'Upload Profile',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
                                 ),
-                                // if (state is SocialUserUpdateLoadingState)
-                                //   SizedBox(
-                                //     height: 5.0,
-                                //   ),
-                                // if (state is SocialUserUpdateLoadingState)
-                                //   LinearProgressIndicator(),
+                                if (state is UserUpdateLoadingState)
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                if (state is UserUpdateLoadingState)
+                                  LinearProgressIndicator(),
                               ],
                             ),
                           ),
@@ -170,23 +183,30 @@ class EditProfile extends StatelessWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                defaultTextButton(
-                                  function: ()
-                                  {
-                                    SocialCubit.get(context).uploadCoverImage(
-                                      // name: nameController.text,
-                                      // phone: phoneController.text,
-                                      // bio: bioController.text,
-                                    );
-                                  },
-                                  text: 'upload cover',
+                                Container(
+                                  width: double.infinity,
+                                  color: Colors.blue,
+                                  child: MaterialButton(
+                                    onPressed: ()
+                                    {
+                                      SocialCubit.get(context).uploadCoverImage(
+                                        name: nameController.text,
+                                        phone: phoneController.text,
+                                        bio: bioController.text,
+                                      );
+                                    },
+                                    child: Text(
+                                      'Upload Cover',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
                                 ),
-                                // if (state is SocialUserUpdateLoadingState)
-                                //   SizedBox(
-                                //     height: 5.0,
-                                //   ),
-                                // if (state is SocialUserUpdateLoadingState)
-                                //   LinearProgressIndicator(),
+                                if (state is UserUpdateLoadingState)
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                if (state is UserUpdateLoadingState)
+                                  LinearProgressIndicator(),
                               ],
                             ),
                           ),

@@ -200,5 +200,5 @@ AppBar defaultAppBar({
   ),
   title: Text(title!),
   actions: actions,
-  titleSpacing: 5,
+
 );

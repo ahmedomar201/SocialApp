@@ -48,13 +48,13 @@ class SocialCubit extends Cubit<SocialStates> {
     }
   }
 
-  UserModel? model;
+  UserModel? userModel;
 
   void getUserModel() {
     emit(GetUserLoadingState());
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       // print(value.data());
-      model = UserModel.fromJson(value.data()!);
+      userModel = UserModel.fromJson(value.data()!);
       emit(GetUserSuccessState());
     }).catchError((error) {
       emit(GetUserErrorState(error.toString()));
@@ -96,20 +96,30 @@ class SocialCubit extends Cubit<SocialStates> {
     }
   }
 
-  String? profileImageUrl='';
-  void uploadProfileImage()
+
+
+  void uploadProfileImage({
+    required String name,
+    required String phone,
+    required String bio,
+  })
   {
-    firebase_storage.FirebaseStorage.instance.
-    ref().
-    child(
-        'users/${Uri.file(profileImage!.path).pathSegments.last}').putFile(profileImage!).
-    then((value)
+    emit(UserUpdateLoadingState());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('users/${Uri.file(profileImage!.path).pathSegments.last}')
+        .putFile(profileImage!)
+        .then((value)
     {
       value.ref.getDownloadURL().then((value)
       {
-        emit(UploadProfileImageSuccessState());
+        //emit(UploadProfileImageSuccessState());
         print(value);
-        profileImageUrl=value;
+        updateUser(
+            name: name,
+            phone: phone,
+            bio: bio,
+            image: value);
       }).
       catchError((error)
       {
@@ -124,21 +134,29 @@ class SocialCubit extends Cubit<SocialStates> {
 
 
 
-  String? coverImageUrl='';
-  void uploadCoverImage()
+
+  void uploadCoverImage({
+    required String name,
+    required String phone,
+    required String bio,
+  })
   {
+    emit(UserUpdateLoadingState());
     firebase_storage.FirebaseStorage.instance.
     ref().
-    child(
-        'users/${Uri.file(coverImage!.path).pathSegments.last}').
+    child('users/${Uri.file(coverImage!.path).pathSegments.last}').
     putFile(coverImage!).
     then((value)
     {
       value.ref.getDownloadURL().then((value)
       {
-        emit(UploadCoverImageSuccessState());
+        //emit(UploadCoverImageSuccessState());
         print(value);
-       coverImageUrl=value;
+        updateUser(
+            name: name,
+            phone: phone,
+            bio: bio,
+            cover: value);
       }).
       catchError((error)
       {
@@ -153,31 +171,59 @@ class SocialCubit extends Cubit<SocialStates> {
 
 
 
+  // void updateUserImages({
+  //   required String name,
+  //   required String phone,
+  //   required String bio,
+  // })
+  // {
+  //   if(coverImage!=null)
+  //   {
+  //      uploadCoverImage();
+  //   }else if(profileImageUrl!=null)
+  //   {
+  //     uploadProfileImage();
+  //   }else if (coverImage!=null&&profileImageUrl!=null)
+  //   {
+  //
+  //   }else
+  //   {
+  //     updateUser(
+  //       name:name,
+  //       bio: bio,
+  //       phone:phone,
+  //     );
+  //   }
+  // }
+
+
   void updateUser({
     required String name,
     required String phone,
     required String bio,
+    String? image,
+    String? cover,
+
   })
   {
-
-
 
     UserModel model = UserModel(
       name: name,
       phone: phone,
       bio:bio,
-      image:profileImageUrl,
-      cover: coverImageUrl,
+      image:image??userModel!.image,
+      cover:cover??userModel!.cover,
+      uId: userModel!.uId,
+      email:userModel!.email,
       isEmailVerified: false,
     );
     FirebaseFirestore.instance.
     collection('users').
-    doc(model.uId).
+    doc(userModel!.uId).
     update(model.toMap()).
     then((value)
     {
       getUserModel();
-
     }).
     catchError((error)
     {
@@ -185,4 +231,5 @@ class SocialCubit extends Cubit<SocialStates> {
     });
 
   }
+
 }

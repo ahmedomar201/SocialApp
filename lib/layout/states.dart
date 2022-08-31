@@ -39,3 +39,5 @@ class UploadCoverImageErrorState extends SocialStates {}
 
 
 class UserUpdateErrorState extends SocialStates {}
+
+class UserUpdateLoadingState extends SocialStates {}
