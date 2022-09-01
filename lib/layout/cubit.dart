@@ -238,7 +238,7 @@ class SocialCubit extends Cubit<SocialStates> {
   File? postImage;
 
   Future<void> getPostImage() async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
 
@@ -322,4 +322,28 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(RemovePostImageState());
   }
 
+
+  List<PostModel> posts = [];
+
+  void getPosts()
+  {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .get()
+        .then((value)
+    {
+      value.docs.forEach((element)
+      {
+        posts.add(PostModel.fromJson(element.data()));
+      });
+
+      emit(GetPostsSuccessState());
+    })
+        .catchError((error){
+      emit(GetPostsErrorState(error.toString()));
+    });
+  }
 }
+
+
+

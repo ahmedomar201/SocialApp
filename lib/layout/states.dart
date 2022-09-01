@@ -11,6 +11,7 @@ class GetUserErrorState extends SocialStates {
   GetUserErrorState(this.error);
 }
 
+
 class ChangeBottomNavState extends SocialStates {}
 
 
@@ -54,3 +55,10 @@ class PostImagePickedErrorState extends SocialStates {}
 class RemovePostImageState extends SocialStates {}
 
 
+class GetPostsLoadingState extends SocialStates {}
+class GetPostsSuccessState extends SocialStates {}
+class GetPostsErrorState extends SocialStates
+{
+  final String error;
+  GetPostsErrorState(this.error);
+}
