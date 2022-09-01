@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socialapp/layout/states.dart';
+import 'package:socialapp/models/post_model.dart';
 import 'package:socialapp/models/users_model.dart';
 import 'package:socialapp/modules/chats/chats_screen.dart';
 import 'package:socialapp/modules/feeds/feeds_screen.dart';
@@ -230,6 +231,95 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(UserUpdateErrorState());
     });
 
+  }
+
+
+
+  File? postImage;
+
+  Future<void> getPostImage() async {
+    final pickedFile = await picker.getImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      postImage = File(pickedFile.path);
+      emit(PostImagePickedSuccessState());
+    } else {
+      print('No image selected.');
+      emit(PostImagePickedErrorState());
+    }
+  }
+
+
+  void uploadPostImage({
+    required String dateTime,
+    required String text,
+  })
+  {
+    emit(CreatePostLoadingState());
+    firebase_storage.FirebaseStorage.instance.
+    ref().
+    child('posts/${Uri.file(postImage!.path).pathSegments.last}').
+    putFile(postImage!).
+    then((value)
+    {
+      value.ref.getDownloadURL().then((value)
+      {
+        print(value);
+
+        createPost(
+          text: text,
+          dateTime: dateTime,
+          postImage: value,
+        );
+      }).
+      catchError((error)
+      {
+        emit(CreatePostErrorState());
+      });
+    }).
+    catchError((error)
+    {
+      emit(CreatePostErrorState());
+    });
+  }
+
+
+  void createPost({
+    required String dateTime,
+    required String text,
+    String? postImage,
+  })
+  {
+    emit(CreatePostLoadingState());
+
+    PostModel model = PostModel(
+      name: userModel!.name,
+      image: userModel!.image,
+      uId: userModel!.uId,
+      dateTime: dateTime,
+      text: text,
+      postImage: postImage??'',
+    );
+
+    FirebaseFirestore.instance
+        .collection('posts')
+        .add(model.toMap())
+        .then((value)
+    {
+      emit(CreatePostSuccessState());
+    })
+        .catchError((error)
+    {
+      emit(CreatePostErrorState());
+    });
+  }
+
+  void removePostImage()
+  {
+    postImage = null;
+    emit(RemovePostImageState());
   }
 
 }

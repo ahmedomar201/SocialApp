@@ -19,39 +19,42 @@ class NewPostScreen extends StatelessWidget
             context: context,
             title: 'Create Post',
             actions: [
-              defaultTextButton(
-                function: ()
+            MaterialButton(
+              onPressed: ()
+              {
+                var now = DateTime.now();
+
+                if (SocialCubit.get(context).postImage == null)
                 {
-                  // var now = DateTime.now();
-                  //
-                  // if (SocialCubit.get(context).postImage == null)
-                  // {
-                  //   SocialCubit.get(context).createPost(
-                  //     dateTime: now.toString(),
-                  //     text: textController.text,
-                  //   );
-                  // } else
-                  // {
-                  //   SocialCubit.get(context).uploadPostImage(
-                  //     dateTime: now.toString(),
-                  //     text: textController.text,
-                  //   );
-                  // }
-                },
-                text: 'Post',
+                  SocialCubit.get(context).createPost(
+                    dateTime: now.toString(),
+                    text: textController.text,
+                  );
+                } else
+                {
+                  SocialCubit.get(context).uploadPostImage(
+                    dateTime: now.toString(),
+                    text: textController.text,
+                  );
+                }
+              },
+              child: Text(
+                'Post',
+                style: TextStyle(color: Colors.blue),
               ),
+            ),
             ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                // if(state is SocialCreatePostLoadingState)
-                //   LinearProgressIndicator(),
-                // if(state is SocialCreatePostLoadingState)
-                //   SizedBox(
-                //     height: 10.0,
-                //   ),
+                if(state is CreatePostLoadingState)
+                  LinearProgressIndicator(),
+                if(state is CreatePostLoadingState)
+                  SizedBox(
+                    height: 10.0,
+                  ),
                 Row(
                   children: [
                     CircleAvatar(
@@ -85,21 +88,21 @@ class NewPostScreen extends StatelessWidget
                 SizedBox(
                   height: 20.0,
                 ),
-                // if(SocialCubit.get(context).postImage != null)
+                if(SocialCubit.get(context).postImage != null)
                   Stack(
                     alignment: AlignmentDirectional.topEnd,
                     children: [
-                      // Container(
-                      //   height: 140.0,
-                      //   width: double.infinity,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(4.0,),
-                      //     image: DecorationImage(
-                      //       image: FileImage(SocialCubit.get(context).postImage),
-                      //       fit: BoxFit.cover,
-                      //     ),
-                      //   ),
-                      // ),
+                      Container(
+                        height: 140.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0,),
+                          image: DecorationImage(
+                            image: FileImage(SocialCubit.get(context).postImage!),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                       IconButton(
                         icon: CircleAvatar(
                           radius: 20.0,
@@ -110,7 +113,7 @@ class NewPostScreen extends StatelessWidget
                         ),
                         onPressed: ()
                         {
-                          // SocialCubit.get(context).removePostImage();
+                          SocialCubit.get(context).removePostImage();
                         },
                       ),
                     ],
@@ -124,7 +127,7 @@ class NewPostScreen extends StatelessWidget
                       child: TextButton(
                         onPressed: ()
                         {
-                          // SocialCubit.get(context).getPostImage();
+                          SocialCubit.get(context).getPostImage();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
