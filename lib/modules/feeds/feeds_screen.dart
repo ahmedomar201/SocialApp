@@ -17,7 +17,7 @@ class FeedScreen extends StatelessWidget
       builder: (context, state)
       {
         return BuildCondition(
-          condition: SocialCubit.get(context).posts.length > 0,
+          condition: SocialCubit.get(context).posts.length >0&&SocialCubit.get(context).userModel!=null,
           builder: (context) => SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
@@ -55,7 +55,7 @@ class FeedScreen extends StatelessWidget
                 ListView.separated(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context),
+                  itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context,index),
                   separatorBuilder: (context, index) => SizedBox(
                     height: 8.0,
                   ),
@@ -73,7 +73,7 @@ class FeedScreen extends StatelessWidget
     );
   }
 
-  Widget buildPostItem(PostModel model, context) => Card(
+  Widget buildPostItem(PostModel model, context,index) => Card(
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 5.0,
     margin: EdgeInsets.symmetric(
@@ -340,7 +340,10 @@ class FeedScreen extends StatelessWidget
                     ),
                   ],
                 ),
-                onTap: () {},
+                onTap: ()
+                {
+                  SocialCubit.get(context).likePost( SocialCubit.get(context).postsId[index]);
+                },
               ),
             ],
           ),
