@@ -1,19 +1,19 @@
 class UserModel {
-  String? name;
+  late String name;
   String? email;
   String? phone;
-  String? uId;
-  String? image;
+  late String uId;
+ late String image;
   String? cover;
   String? bio;
   bool? isEmailVerified;
 
   UserModel({
-    this.name,
+    required this.name,
     this.email,
     this.phone,
-    this.uId,
-    this.image,
+    required this.uId,
+    required this.image,
     this.cover,
     this.bio,
     this.isEmailVerified,

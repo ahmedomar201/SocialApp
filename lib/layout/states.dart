@@ -82,3 +82,13 @@ class GetChatErrorState extends SocialStates {
 
   GetChatErrorState(this.error);
 }
+
+
+
+class SendMessageSuccessState extends SocialStates {}
+class SendMessageErrorState extends SocialStates {}
+
+
+
+class GetMessagesSuccessState extends SocialStates {}
+class GetMessagesErrorState extends SocialStates {}

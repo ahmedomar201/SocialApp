@@ -4,22 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialapp/layout/cubit.dart';
 import 'package:socialapp/layout/states.dart';
 import 'package:socialapp/models/users_model.dart';
+import 'package:socialapp/modules/chats/chat_detalis.dart';
 import 'package:socialapp/shared/componets/tasks.dart';
 
-class ChatsScreen extends StatelessWidget
-{
+class ChatsScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
-      builder: (context, state)
-      {
+      builder: (context, state) {
         return BuildCondition(
           condition: SocialCubit.get(context).users.length > 0,
           builder: (context) => ListView.separated(
             physics: BouncingScrollPhysics(),
-            itemBuilder: (context, index) => buildChatItem(SocialCubit.get(context).users[index]),
+            itemBuilder: (context, index) =>
+                buildChatItem(SocialCubit.get(context).users[index], context),
             separatorBuilder: (context, index) => myDivider(),
             itemCount: SocialCubit.get(context).users.length,
           ),
@@ -29,13 +28,17 @@ class ChatsScreen extends StatelessWidget
     );
   }
 
-  Widget buildChatItem(UserModel model) => InkWell(
-    onTap: (){},
+  Widget buildChatItem(UserModel model, context) => InkWell(
+    onTap: () {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context)=>ChatDetailsScreen(
+            userModel: model,
+          ),));
+    },
     child: Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
-        children:
-        [
+        children: [
           CircleAvatar(
             radius: 25.0,
             backgroundImage: NetworkImage(

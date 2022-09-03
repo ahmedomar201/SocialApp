@@ -19,7 +19,7 @@ class EditProfile extends StatelessWidget {
         var profileImage = SocialCubit.get(context).profileImage;
         var coverImage = SocialCubit.get(context).coverImage;
 
-        nameController.text = userModel!.name!;
+        nameController.text = userModel!.name;
         phoneController.text = userModel.phone!;
         bioController.text = userModel.bio!;
 
