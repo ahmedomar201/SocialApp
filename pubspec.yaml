@@ -38,6 +38,7 @@ dependencies:
   firebase_auth: ^3.6.4
   firebase_storage: ^10.3.7
   cloud_firestore: ^3.4.5
+  firebase_messaging: ^13.0.0
   buildcondition: ^0.0.4
   flutter_bloc: ^8.0.1
   bloc: ^8.1.0
