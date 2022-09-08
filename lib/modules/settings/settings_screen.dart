@@ -175,7 +175,25 @@ class SettingScreen extends StatelessWidget
                       size: 16.0,
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+
+
                 ],
+              ),
+              Container(
+                width: double.infinity,
+                color: Colors.blue,
+                child: MaterialButton(
+                  onPressed: (){
+                    SocialCubit.get(context).signOut(context);
+                  },
+                  child: Text(
+                    'LOGOUT',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ],
           ),

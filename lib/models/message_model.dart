@@ -1,8 +1,8 @@
 class MessageModel {
- late String senderId;
- late String receiverId;
- late String dateTime;
- late String text;
+  String? senderId;
+  String? receiverId;
+  String? dateTime;
+  String? text;
 
   MessageModel({
     required this.senderId,

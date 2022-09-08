@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +10,7 @@ import 'package:socialapp/models/post_model.dart';
 import 'package:socialapp/models/users_model.dart';
 import 'package:socialapp/modules/chats/chats_screen.dart';
 import 'package:socialapp/modules/feeds/feeds_screen.dart';
+import 'package:socialapp/modules/login/login_screen.dart';
 import 'package:socialapp/modules/newpost/newpost_screen.dart';
 import 'package:socialapp/modules/settings/settings_screen.dart';
 import 'package:socialapp/modules/users/users_screen.dart';
@@ -371,17 +373,17 @@ class SocialCubit extends Cubit<SocialStates> {
 
 
 
- late List<UserModel> users;
+  List<UserModel>? users=[];
 
   void getUsers()
   {
-    if (users.length == 0)
+    if (users!.length == 0)
     FirebaseFirestore.instance.collection('users').get().then((value)
     {
       value.docs.forEach((element)
       {
         if (element.data()['uId'] != userModel!.uId)
-        users.add(UserModel.fromJson(element.data()));
+        users!.add(UserModel.fromJson(element.data()));
       });
 
       emit(GetChatSuccessState());
@@ -456,11 +458,18 @@ class SocialCubit extends Cubit<SocialStates> {
       event.docs.forEach((element) {
         messages.add(MessageModel.fromJson(element.data()));
       });
-
-      emit(GetMessagesSuccessState());
     });
   }
 
+  void signOut(context) {
+    FirebaseAuth.instance.signOut().then((value) {
+      Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginScreen()));
+      emit(UserSignOutSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(UserSignOutErrorState());
+    });
+  }
 }
 
 

@@ -7,7 +7,7 @@ import 'package:socialapp/models/message_model.dart';
 import 'package:socialapp/models/users_model.dart';
 import 'package:socialapp/shared/styles/colors.dart';
 import 'package:socialapp/shared/styles/icon_broken.dart';
-// ignore: must_be_immutable
+
 class ChatDetailsScreen extends StatelessWidget {
   UserModel userModel;
 
@@ -157,7 +157,7 @@ class ChatDetailsScreen extends StatelessWidget {
         horizontal: 10.0,
       ),
       child: Text(
-        model.text,
+        model.text!,
       ),
     ),
   );
@@ -186,7 +186,7 @@ class ChatDetailsScreen extends StatelessWidget {
         horizontal: 10.0,
       ),
       child: Text(
-        model.text,
+        model.text!,
       ),
     ),
   );

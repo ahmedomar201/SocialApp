@@ -8,84 +8,87 @@ import 'package:socialapp/shared/styles/icon_broken.dart';
 class SocialLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state)
-      {
-        if(state is NewPostState)
+    return BlocProvider(
+      create: (BuildContext context) => SocialCubit()..getUserModel()..getPosts(),
+      child: BlocConsumer<SocialCubit, SocialStates>(
+        listener: (context, state)
         {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder:(context)=>NewPostScreen()
-              )
-          );
-        }
-      },
-      builder: (context, state) {
-        var cubit = SocialCubit.get(context);
+          if(state is NewPostState)
+          {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder:(context)=>NewPostScreen()
+                )
+            );
+          }
+        },
+        builder: (context, state) {
+          var cubit = SocialCubit.get(context);
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              cubit.titles[cubit.currentIndex],
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                cubit.titles[cubit.currentIndex],
+              ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    IconBroken.Notification,
+                  ),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: Icon(
+                    IconBroken.Search,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
             ),
-            actions: [
-              IconButton(
-                icon: Icon(
-                  IconBroken.Notification,
+            body: cubit.screens[cubit.currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: cubit.currentIndex,
+              onTap: (index)
+              {
+                cubit.changeBottomNav(index);
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    IconBroken.Home,
+                  ),
+                  label: 'Home',
                 ),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(
-                  IconBroken.Search,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    IconBroken.Chat,
+                  ),
+                  label: 'Chats',
                 ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          body: cubit.screens[cubit.currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: cubit.currentIndex,
-            onTap: (index)
-            {
-              cubit.changeBottomNav(index);
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  IconBroken.Home,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    IconBroken.Paper_Upload,
+                  ),
+                  label: 'Post',
                 ),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  IconBroken.Chat,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    IconBroken.Location,
+                  ),
+                  label: 'Users',
                 ),
-                label: 'Chats',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  IconBroken.Paper_Upload,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    IconBroken.Setting,
+                  ),
+                  label: 'Settings',
                 ),
-                label: 'Post',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  IconBroken.Location,
-                ),
-                label: 'Users',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  IconBroken.Setting,
-                ),
-                label: 'Settings',
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
