@@ -8,6 +8,7 @@ import 'package:socialapp/models/users_model.dart';
 import 'package:socialapp/shared/styles/colors.dart';
 import 'package:socialapp/shared/styles/icon_broken.dart';
 
+// ignore: must_be_immutable
 class ChatDetailsScreen extends StatelessWidget {
   UserModel userModel;
 

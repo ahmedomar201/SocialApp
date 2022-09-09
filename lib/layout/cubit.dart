@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socialapp/layout/states.dart';
 import 'package:socialapp/models/message_model.dart';
@@ -463,14 +465,25 @@ class SocialCubit extends Cubit<SocialStates> {
 
   void signOut(context) {
     FirebaseAuth.instance.signOut().then((value) {
-      Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginScreen()));
+      navigateAndFinish(context,LoginScreen());
       emit(UserSignOutSuccessState());
     }).catchError((error) {
       print(error.toString());
       emit(UserSignOutErrorState());
     });
   }
+  Completer<GoogleMapController>? place = Completer();
+
+  Future<void> direction() async {
+    final GoogleMapController controller = await place!.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        bearing: 192.8334901395799,
+        target: LatLng(37.43296265331129, -122.08832357078792),
+        tilt: 59.440717697143555,
+        zoom: 19.151926040649414)));
+  }
 }
 
 
 
+  //AAAA_0pl7NM:APA91bHxHBkYg5lG5SLdrbF0AyydJBhqGZ_OGgz2UPExsLNdZhpu0ZMPTeoZYpvS_B6OstRfjtb6NgVan_4jdbEmayn2pBY1ybweeqRKL8PJ---5Je0t-29At-Q4Mq4Da5vB9pB9h0TM
