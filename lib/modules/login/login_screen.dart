@@ -92,13 +92,7 @@ class LoginScreen extends StatelessWidget {
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: LoginCubit.get(context).isPassword,
                         onFieldSubmitted: (value) {
-                          // if(fromKey.currentState!.validate())
-                          // {
-                          //   LoginCubit.get(context).userLogin(
-                          //       email: emailController.text,
-                          //       password: passwordController.text
-                          //   );
-                          // }
+
                         },
                         onTap: () {
                           LoginCubit.get(context).changIcon();
@@ -132,8 +126,7 @@ class LoginScreen extends StatelessWidget {
                                 LoginCubit.get(context).userLogin(
                                     email: emailController.text,
                                     password: passwordController.text);
-                                // print(passwordController.text);
-                                // print(emailController.text);
+
                               }
                             },
                             child: Text(
