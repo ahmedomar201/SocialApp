@@ -1,12 +1,12 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socialapp/layout/social_layout.dart';
-import 'package:socialapp/modules/login/cubit_login.dart';
-import 'package:socialapp/modules/login/states_login.dart';
-import 'package:socialapp/modules/register/register_screen.dart';
-import 'package:socialapp/shared/componets/tasks.dart';
-import 'package:socialapp/shared/netwoark/local/cash_helper.dart';
+import 'package:social_app/layout/social_layout.dart';
+import 'package:social_app/modules/login/cubit_login.dart';
+import 'package:social_app/modules/login/states_login.dart';
+import 'package:social_app/modules/register/register_screen.dart';
+import 'package:social_app/shared/componets/tasks.dart';
+import 'package:social_app/shared/netwoark/local/cash_helper.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -15,6 +15,8 @@ class LoginScreen extends StatelessWidget {
   var fromKey = GlobalKey<FormState>();
   bool isPassword = true;
   IconData suffix = Icons.visibility_outlined;
+
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,7 @@ class LoginScreen extends StatelessWidget {
             showToast(text: state.error, state: ToastStates.ERROR);
           }
           if (state is LoginSuccessState) {
-            CacheHelper.saveData(
-              key: 'uId',
-              value: state.uId,
-            ).then((value) {
+            CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
               navigateAndFinish(context, SocialLayout());
             });
             //   } else {
@@ -55,17 +54,20 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       Text(
                         'LOGIN',
-                        style: Theme.of(context).textTheme.headline4?.copyWith(
-                            fontWeight: FontWeight.bold, color: Colors.black),
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                       ),
                       Text(
                         'Login now to Communicate with friends',
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            color: Colors.grey, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      SizedBox(
-                        height: 40,
-                      ),
+                      SizedBox(height: 40),
                       TextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -84,25 +86,19 @@ class LoginScreen extends StatelessWidget {
                           return null;
                         },
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
+                      SizedBox(height: 15),
                       TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: LoginCubit.get(context).isPassword,
-                        onFieldSubmitted: (value) {
-
-                        },
+                        onFieldSubmitted: (value) {},
                         onTap: () {
                           LoginCubit.get(context).changIcon();
                         },
                         decoration: InputDecoration(
                           labelText: "password",
                           prefixIcon: Icon(Icons.lock),
-                          suffixIcon: Icon(
-                            LoginCubit.get(context).suffix,
-                          ),
+                          suffixIcon: Icon(LoginCubit.get(context).suffix),
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) {
@@ -112,9 +108,7 @@ class LoginScreen extends StatelessWidget {
                           return null;
                         },
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20),
                       BuildCondition(
                         condition: state is! LoginLoadingState,
                         builder: (context) => Container(
@@ -124,9 +118,9 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () {
                               if (fromKey.currentState!.validate()) {
                                 LoginCubit.get(context).userLogin(
-                                    email: emailController.text,
-                                    password: passwordController.text);
-
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
                               }
                             },
                             child: Text(
@@ -138,26 +132,24 @@ class LoginScreen extends StatelessWidget {
                         fallback: (context) =>
                             Center(child: CircularProgressIndicator()),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "DON\'t have an account?",
-                          ),
+                          Text("DON't have an account?"),
                           TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            RegisterScreen()));
-                              },
-                              child: Text("Register Now")),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterScreen(),
+                                ),
+                              );
+                            },
+                            child: Text("Register Now"),
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -169,5 +161,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-

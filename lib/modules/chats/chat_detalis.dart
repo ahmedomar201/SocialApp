@@ -1,20 +1,18 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socialapp/layout/cubit.dart';
-import 'package:socialapp/layout/states.dart';
-import 'package:socialapp/models/message_model.dart';
-import 'package:socialapp/models/users_model.dart';
-import 'package:socialapp/shared/styles/colors.dart';
-import 'package:socialapp/shared/styles/icon_broken.dart';
+import 'package:social_app/layout/cubit.dart';
+import 'package:social_app/layout/states.dart';
+import 'package:social_app/models/message_model.dart';
+import 'package:social_app/models/users_model.dart';
+import 'package:social_app/shared/styles/colors.dart';
+import 'package:social_app/shared/styles/icon_broken.dart';
 
 // ignore: must_be_immutable
 class ChatDetailsScreen extends StatelessWidget {
   UserModel userModel;
 
-  ChatDetailsScreen({
-    required this.userModel,
-  });
+  ChatDetailsScreen({super.key, required this.userModel});
 
   var messageController = TextEditingController();
 
@@ -22,9 +20,7 @@ class ChatDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (BuildContext context) {
-        SocialCubit.get(context).getMessages(
-          receiverId: userModel.uId,
-        );
+        SocialCubit.get(context).getMessages(receiverId: userModel.uId);
 
         return BlocConsumer<SocialCubit, SocialStates>(
           listener: (context, state) {},
@@ -36,16 +32,10 @@ class ChatDetailsScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 20.0,
-                      backgroundImage: NetworkImage(
-                        userModel.image,
-                      ),
+                      backgroundImage: NetworkImage(userModel.image),
                     ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Text(
-                      userModel.name,
-                    ),
+                    SizedBox(width: 15.0),
+                    Text(userModel.name),
                   ],
                 ),
               ),
@@ -58,30 +48,27 @@ class ChatDetailsScreen extends StatelessWidget {
                       Expanded(
                         child: ListView.separated(
                           physics: BouncingScrollPhysics(),
-                          itemBuilder: (context, index)
-                          {
-                            var message = SocialCubit.get(context).messages[index];
+                          itemBuilder: (context, index) {
+                            var message = SocialCubit.get(
+                              context,
+                            ).messages[index];
 
-                            if(SocialCubit.get(context).userModel!.uId == message.senderId)
+                            if (SocialCubit.get(context).userModel!.uId ==
+                                message.senderId) {
                               return buildMyMessage(message);
+                            }
 
                             return buildMessage(message);
                           },
-                          separatorBuilder: (context, index) => SizedBox(
-                            height: 15.0,
-                          ),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(height: 15.0),
                           itemCount: SocialCubit.get(context).messages.length,
                         ),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            15.0,
-                          ),
+                          border: Border.all(color: Colors.grey, width: 1.0),
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Row(
@@ -125,9 +112,8 @@ class ChatDetailsScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                fallback: (context) => Center(
-                  child: CircularProgressIndicator(),
-                ),
+                fallback: (context) =>
+                    Center(child: CircularProgressIndicator()),
               ),
             );
           },
@@ -142,24 +128,13 @@ class ChatDetailsScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey[300],
         borderRadius: BorderRadiusDirectional.only(
-          bottomEnd: Radius.circular(
-            10.0,
-          ),
-          topStart: Radius.circular(
-            10.0,
-          ),
-          topEnd: Radius.circular(
-            10.0,
-          ),
+          bottomEnd: Radius.circular(10.0),
+          topStart: Radius.circular(10.0),
+          topEnd: Radius.circular(10.0),
         ),
       ),
-      padding: EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 10.0,
-      ),
-      child: Text(
-        model.text!,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+      child: Text(model.text!),
     ),
   );
 
@@ -167,28 +142,15 @@ class ChatDetailsScreen extends StatelessWidget {
     alignment: AlignmentDirectional.centerEnd,
     child: Container(
       decoration: BoxDecoration(
-        color: defaultColor.withOpacity(
-          .2,
-        ),
+        color: defaultColor.withOpacity(.2),
         borderRadius: BorderRadiusDirectional.only(
-          bottomStart: Radius.circular(
-            10.0,
-          ),
-          topStart: Radius.circular(
-            10.0,
-          ),
-          topEnd: Radius.circular(
-            10.0,
-          ),
+          bottomStart: Radius.circular(10.0),
+          topStart: Radius.circular(10.0),
+          topEnd: Radius.circular(10.0),
         ),
       ),
-      padding: EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 10.0,
-      ),
-      child: Text(
-        model.text!,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+      child: Text(model.text!),
     ),
   );
 }

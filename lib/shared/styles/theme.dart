@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:socialapp/shared/styles/colors.dart';
+import 'package:social_app/shared/styles/colors.dart';
 
 ThemeData darkTheme = ThemeData(
   primarySwatch: defaultColor,
@@ -20,9 +20,7 @@ ThemeData darkTheme = ThemeData(
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
     ),
-    iconTheme: IconThemeData(
-      color: Colors.white,
-    ),
+    iconTheme: IconThemeData(color: Colors.white),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
@@ -32,12 +30,12 @@ ThemeData darkTheme = ThemeData(
     backgroundColor: HexColor('333739'),
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
-    subtitle1: TextStyle(
+    titleMedium: TextStyle(
       fontSize: 14.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,
@@ -64,9 +62,7 @@ ThemeData lightTheme = ThemeData(
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
     ),
-    iconTheme: IconThemeData(
-      color: Colors.black,
-    ),
+    iconTheme: IconThemeData(color: Colors.black),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
@@ -76,12 +72,12 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: Colors.white,
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
-    subtitle1: TextStyle(
+    titleMedium: TextStyle(
       fontSize: 14.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,

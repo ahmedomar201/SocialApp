@@ -1,10 +1,10 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socialapp/layout/social_layout.dart';
-import 'package:socialapp/modules/register/cubit_register.dart';
-import 'package:socialapp/modules/register/states_register.dart';
-import 'package:socialapp/shared/componets/tasks.dart';
+import 'package:social_app/layout/social_layout.dart';
+import 'package:social_app/modules/register/cubit_register.dart';
+import 'package:social_app/modules/register/states_register.dart';
+import 'package:social_app/shared/componets/tasks.dart';
 
 // ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
@@ -15,6 +15,8 @@ class RegisterScreen extends StatelessWidget {
   var fromKey = GlobalKey<FormState>();
   bool isPassword = true;
   IconData suffix = Icons.visibility_outlined;
+
+  RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,25 +62,21 @@ class RegisterScreen extends StatelessWidget {
                       children: [
                         Text(
                           'REGISTER',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4
+                          style: Theme.of(context).textTheme.headlineMedium
                               ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                         ),
                         Text(
                           'Register now to Communicate with friends',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
+                          style: Theme.of(context).textTheme.bodyLarge
                               ?.copyWith(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        SizedBox(height: 20),
                         TextFormField(
                           controller: nameController,
                           keyboardType: TextInputType.name,
@@ -97,9 +95,7 @@ class RegisterScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        SizedBox(height: 20),
                         TextFormField(
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
@@ -118,9 +114,7 @@ class RegisterScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        SizedBox(height: 20),
                         TextFormField(
                           controller: passwordController,
                           keyboardType: TextInputType.visiblePassword,
@@ -132,9 +126,7 @@ class RegisterScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: "password",
                             prefixIcon: Icon(Icons.lock),
-                            suffixIcon: Icon(
-                              RegisterCubit.get(context).suffix,
-                            ),
+                            suffixIcon: Icon(RegisterCubit.get(context).suffix),
                             border: OutlineInputBorder(),
                           ),
                           validator: (value) {
@@ -144,9 +136,7 @@ class RegisterScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        SizedBox(height: 20),
                         TextFormField(
                           controller: phoneController,
                           keyboardType: TextInputType.phone,
@@ -165,9 +155,7 @@ class RegisterScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        SizedBox(height: 20),
                         BuildCondition(
                           condition: state is! RegisterLoadingState,
                           builder: (context) => Container(

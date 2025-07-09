@@ -1,13 +1,15 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socialapp/layout/cubit.dart';
-import 'package:socialapp/layout/states.dart';
-import 'package:socialapp/models/users_model.dart';
-import 'package:socialapp/modules/chats/chat_detalis.dart';
-import 'package:socialapp/shared/componets/tasks.dart';
+import 'package:social_app/layout/cubit.dart';
+import 'package:social_app/layout/states.dart';
+import 'package:social_app/models/users_model.dart';
+import 'package:social_app/modules/chats/chat_detalis.dart';
+import 'package:social_app/shared/componets/tasks.dart';
 
 class ChatsScreen extends StatelessWidget {
+  const ChatsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
@@ -30,10 +32,12 @@ class ChatsScreen extends StatelessWidget {
 
   Widget buildChatItem(UserModel model, context) => InkWell(
     onTap: () {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context)=>ChatDetailsScreen(
-            userModel: model,
-          ),));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChatDetailsScreen(userModel: model),
+        ),
+      );
     },
     child: Padding(
       padding: const EdgeInsets.all(20.0),
@@ -41,19 +45,10 @@ class ChatsScreen extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25.0,
-            backgroundImage: NetworkImage(
-              '${model.image}',
-            ),
+            backgroundImage: NetworkImage('${model.image}'),
           ),
-          SizedBox(
-            width: 15.0,
-          ),
-          Text(
-            '${model.name}',
-            style: TextStyle(
-              height: 1.4,
-            ),
-          ),
+          SizedBox(width: 15.0),
+          Text('${model.name}', style: TextStyle(height: 1.4)),
         ],
       ),
     ),

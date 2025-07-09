@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socialapp/layout/cubit.dart';
-import 'package:socialapp/layout/states.dart';
-import 'package:socialapp/shared/styles/icon_broken.dart';
+import 'package:social_app/layout/cubit.dart';
+import 'package:social_app/layout/states.dart';
+import 'package:social_app/shared/styles/icon_broken.dart';
 import '../../shared/componets/tasks.dart';
+
 // ignore: must_be_immutable
-class NewPostScreen extends StatelessWidget
-{
+class NewPostScreen extends StatelessWidget {
   var textController = TextEditingController();
+
+  NewPostScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,42 +21,32 @@ class NewPostScreen extends StatelessWidget
             context: context,
             title: 'Create Post',
             actions: [
-            MaterialButton(
-              onPressed: ()
-              {
-                var now = DateTime.now();
+              MaterialButton(
+                onPressed: () {
+                  var now = DateTime.now();
 
-                if (SocialCubit.get(context).postImage == null)
-                {
-                  SocialCubit.get(context).createPost(
-                    dateTime: now.toString(),
-                    text: textController.text,
-                  );
-                } else
-                {
-                  SocialCubit.get(context).uploadPostImage(
-                    dateTime: now.toString(),
-                    text: textController.text,
-                  );
-                }
-              },
-              child: Text(
-                'Post',
-                style: TextStyle(color: Colors.blue),
+                  if (SocialCubit.get(context).postImage == null) {
+                    SocialCubit.get(context).createPost(
+                      dateTime: now.toString(),
+                      text: textController.text,
+                    );
+                  } else {
+                    SocialCubit.get(context).uploadPostImage(
+                      dateTime: now.toString(),
+                      text: textController.text,
+                    );
+                  }
+                },
+                child: Text('Post', style: TextStyle(color: Colors.blue)),
               ),
-            ),
             ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                if(state is CreatePostLoadingState)
-                  LinearProgressIndicator(),
-                if(state is CreatePostLoadingState)
-                  SizedBox(
-                    height: 10.0,
-                  ),
+                if (state is CreatePostLoadingState) LinearProgressIndicator(),
+                if (state is CreatePostLoadingState) SizedBox(height: 10.0),
                 Row(
                   children: [
                     CircleAvatar(
@@ -63,16 +55,9 @@ class NewPostScreen extends StatelessWidget
                         'https://image.freepik.com/free-photo/skeptical-woman-has-unsure-questioned-expression-points-fingers-sideways_273609-40770.jpg',
                       ),
                     ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
+                    SizedBox(width: 15.0),
                     Expanded(
-                      child: Text(
-                        'Ahmed Omar',
-                        style: TextStyle(
-                          height: 1.4,
-                        ),
-                      ),
+                      child: Text('Ahmed Omar', style: TextStyle(height: 1.4)),
                     ),
                   ],
                 ),
@@ -85,10 +70,8 @@ class NewPostScreen extends StatelessWidget
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                if(SocialCubit.get(context).postImage != null)
+                SizedBox(height: 20.0),
+                if (SocialCubit.get(context).postImage != null)
                   Stack(
                     alignment: AlignmentDirectional.topEnd,
                     children: [
@@ -96,9 +79,11 @@ class NewPostScreen extends StatelessWidget
                         height: 140.0,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0,),
+                          borderRadius: BorderRadius.circular(4.0),
                           image: DecorationImage(
-                            image: FileImage(SocialCubit.get(context).postImage!),
+                            image: FileImage(
+                              SocialCubit.get(context).postImage!,
+                            ),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -106,41 +91,28 @@ class NewPostScreen extends StatelessWidget
                       IconButton(
                         icon: CircleAvatar(
                           radius: 20.0,
-                          child: Icon(
-                            Icons.close,
-                            size: 16.0,
-                          ),
+                          child: Icon(Icons.close, size: 16.0),
                         ),
-                        onPressed: ()
-                        {
+                        onPressed: () {
                           SocialCubit.get(context).removePostImage();
                         },
                       ),
                     ],
                   ),
-                SizedBox(
-                  height: 20.0,
-                ),
+                SizedBox(height: 20.0),
                 Row(
                   children: [
                     Expanded(
                       child: TextButton(
-                        onPressed: ()
-                        {
+                        onPressed: () {
                           SocialCubit.get(context).getPostImage();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              IconBroken.Image,
-                            ),
-                            SizedBox(
-                              width: 5.0,
-                            ),
-                            Text(
-                              'add photo',
-                            ),
+                            Icon(IconBroken.Image),
+                            SizedBox(width: 5.0),
+                            Text('add photo'),
                           ],
                         ),
                       ),
@@ -148,9 +120,7 @@ class NewPostScreen extends StatelessWidget
                     Expanded(
                       child: TextButton(
                         onPressed: () {},
-                        child: Text(
-                          '# tags',
-                        ),
+                        child: Text('# tags'),
                       ),
                     ),
                   ],
