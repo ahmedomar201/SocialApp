@@ -17,7 +17,7 @@ class FeedScreen extends StatelessWidget {
       builder: (context, state) {
         return BuildCondition(
           condition:
-              SocialCubit.get(context).posts.length > 0 &&
+              SocialCubit.get(context).posts.isNotEmpty &&
               SocialCubit.get(context).userModel != null,
           builder: (context) => SingleChildScrollView(
             physics: BouncingScrollPhysics(),
@@ -259,7 +259,7 @@ class FeedScreen extends StatelessWidget {
                       CircleAvatar(
                         radius: 18.0,
                         backgroundImage: NetworkImage(
-                          '${SocialCubit.get(context).userModel!.image}',
+                          SocialCubit.get(context).userModel!.image,
                         ),
                       ),
                       SizedBox(width: 15.0),

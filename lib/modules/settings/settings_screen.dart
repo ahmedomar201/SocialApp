@@ -48,7 +48,7 @@ class SettingScreen extends StatelessWidget {
                       ).scaffoldBackgroundColor,
                       child: CircleAvatar(
                         radius: 60.0,
-                        backgroundImage: NetworkImage('${userModel.image}'),
+                        backgroundImage: NetworkImage(userModel.image),
                       ),
                     ),
                   ],
@@ -56,7 +56,7 @@ class SettingScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.0),
               Text(
-                '${userModel.name}',
+                userModel.name,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               Text(

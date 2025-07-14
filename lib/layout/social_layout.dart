@@ -6,6 +6,8 @@ import 'package:social_app/modules/newpost/newpost_screen.dart';
 import 'package:social_app/shared/styles/icon_broken.dart';
 
 class SocialLayout extends StatelessWidget {
+  const SocialLayout({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(

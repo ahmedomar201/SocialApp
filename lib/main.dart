@@ -9,6 +9,7 @@ import 'layout/cubit.dart';
 import 'layout/social_layout.dart';
 import 'layout/states.dart';
 import 'modules/login/login_screen.dart';
+import 'presentionLayer/screens/login_screen.dart';
 import 'shared/componets/tasks.dart';
 import 'shared/netwoark/local/cash_helper.dart';
 import 'shared/styles/theme.dart';
@@ -76,7 +77,7 @@ class MyApp extends StatelessWidget {
           theme: lightTheme,
           darkTheme: darkTheme,
           //themeMode: ThemeMode.dark,
-          home: startWidget,
+          home: LoginScreen(),
         ),
       ),
     );

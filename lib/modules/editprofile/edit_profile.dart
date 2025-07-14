@@ -103,7 +103,7 @@ class EditProfile extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 60.0,
                                 backgroundImage: profileImage == null
-                                    ? NetworkImage('${userModel.image}')
+                                    ? NetworkImage(userModel.image)
                                     : FileImage(profileImage) as ImageProvider,
                               ),
                             ),

@@ -16,7 +16,7 @@ class ChatsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return BuildCondition(
-          condition: SocialCubit.get(context).users!.length > 0,
+          condition: SocialCubit.get(context).users!.isNotEmpty,
           builder: (context) => ListView.separated(
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) =>
@@ -45,10 +45,10 @@ class ChatsScreen extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25.0,
-            backgroundImage: NetworkImage('${model.image}'),
+            backgroundImage: NetworkImage(model.image),
           ),
           SizedBox(width: 15.0),
-          Text('${model.name}', style: TextStyle(height: 1.4)),
+          Text(model.name, style: TextStyle(height: 1.4)),
         ],
       ),
     ),
